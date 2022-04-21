@@ -1,0 +1,32 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block title %}
+НОВОСТИ | SAKURA SUSHI
+{% endblock %}
+
+{% block content %}
+	{% if img %}
+	<img class="img-fluid w-100" style="margin-bottom: -40px" src="{{ img.url }}" alt="{{ title }}">
+	{% endif %}
+	<div class="container-fluid menu">
+		<div class="container">
+
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+    				<li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+    				<li class="breadcrumb-item"><a href="{% url 'news' %}">Новости</a></li>
+    				<li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+  				</ol>
+			</nav>
+			<div class="d-flex mb-4">
+				<span class="border_title"></span>
+				<span class="font_title">{{ title }}</span>
+			</div>
+
+			{{ body|safe }}
+			
+		</div>
+	</div>
+{% endblock %}

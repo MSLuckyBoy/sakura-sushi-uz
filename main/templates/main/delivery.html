@@ -1,0 +1,31 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block title %}
+ДОСТАВКА | SAKURA SUSHI
+{% endblock %}
+
+{% block content %}
+	{% if img %}
+	<img class="img-fluid w-100" style="margin-bottom: -40px;" src="{{ img.url }}" alt="Sakura Sushi - Delivery">
+	{% endif %}
+	<div class="container-fluid menu">
+		<div class="container">
+
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+    				<li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+    				<li class="breadcrumb-item active" aria-current="page">Доставка</li>
+  				</ol>
+			</nav>
+			<div class="d-flex mb-4">
+				<span class="border_title"></span>
+				<span class="font_title">Доставка</span>
+			</div>
+
+			{{ body|safe }}
+		
+		</div>
+	</div>
+{% endblock %}

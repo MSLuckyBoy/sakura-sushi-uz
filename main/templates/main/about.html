@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block title %}
+О НАС | SAKURA SUSHI
+{% endblock %}
+
+{% block content %}
+	<div class="container-fluid menu">
+		<div class="container">
+
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+    				<li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+    				<li class="breadcrumb-item active" aria-current="page">О нас</li>
+  				</ol>
+			</nav>
+			<div class="d-flex mb-4">
+				<span class="border_title"></span>
+				<span class="font_title">О нас</span>
+			</div>
+
+			{{ about|safe }}
+
+		</div>
+	</div>
+{% endblock %}

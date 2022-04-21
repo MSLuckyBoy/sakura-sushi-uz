@@ -1,0 +1,229 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block title %}
+SAKURA SUSHI
+{% endblock %}
+
+{% block content %}
+	<!-- SLIDER -->	
+	<div id="myCarousel" class="carousel slide mb-4" style="margin-top: 0px;" data-bs-ride="carousel">
+		{% if length != 0 %}
+		<ol class="carousel-indicators">
+			{% for n in length|get_range %}
+			{% if n == 0 %}
+			<li data-bs-target="#myCarousel" data-bs-slide-to="{{ n }}" class="active"></li>
+			{% else %}
+			<li data-bs-target="#myCarousel" data-bs-slide-to="{{ n }}"></li>
+			{% endif %}
+			{% endfor %}
+		</ol>
+		<div class="carousel-inner">
+
+			{% if active_type == "slider" %}
+			<div class="carousel-item active">
+				<a href="{{ active.url }}">
+					<img src="{{ active.banner.url }}" width="1200" height="360" class="img-fluid w-100 d-block" alt="{{ active.title }}">
+				</a>
+			</div>
+
+			{% elif active_type == "sales" %}
+			<div class="carousel-item active">
+				<a href="{{ active.get_absolute_url }}">
+					<img src="{{ active.banner.url }}" width="1200" height="360" class="img-fluid w-100 d-block" alt="{{ active.title }}">
+				</a>
+			</div>
+			{% endif %}
+
+
+			{% for slide in slider %}
+			<div class="carousel-item">
+				<a href="{{ slide.url }}">
+					<img src="{{ slide.banner.url }}" width="1200" height="360" class="img-fluid w-100 d-block" alt="{{ slide.title }}">
+				</a>
+			</div>
+			{% endfor %}
+
+			{% for sale in sales %}
+			<div class="carousel-item">
+				<a href="{{ sale.get_absolute_url }}">
+					<img src="{{ sale.banner.url }}" width="1200" height="360" class="img-fluid w-100 d-block" alt="{{ sale.title }}">
+				</a>
+			</div>
+			{% endfor %}
+		</div>
+
+		<a href="#myCarousel" class="carousel-control-prev" role="button" data-bs-slide="prev">
+			<span class="sr-only"></span>
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		</a>
+		<a href="#myCarousel" class="carousel-control-next" role="button" data-bs-slide="next">
+			<span class="sr-only"></span>
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+		</a>
+
+		{% else %}
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<img src="{% static 'img/Slider/ImgNotFound.png' %}" width="1200" height="360" class="img-fluid w-100 d-block" alt="Image Not Found">
+			</div>
+		</div>
+		{% endif %}
+	</div>
+	<!-- SLIDER END -->
+
+
+	<!-- CONTENT -->
+	<div class="container-fluid">
+		<div class="container">
+
+			<div class="accordion accordion-flush" id="accordionFlushExample">
+			{% if recom == True %}
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="headingRecom">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRecom" aria-expanded="false" aria-controls="collapseRecom">
+							<div class="d-flex">
+								<span class="border_title"></span>
+								<span class="font_title">Выбрано для вас</span>
+							</div>
+						</button>
+					</h2>
+					<div id="collapseRecom" class="accordion-collapse collapse" aria-labelledby="headingRecom">
+						<div class="accordion-body">
+
+							<div class="row ml-0 mr-0 mt-4 mb-4">
+							{% for i in menu %}
+							{% if i.is_published and i.is_recom %}
+								<div class="col-md-4 col-lg-3 px-0">
+									<div class="card card_anim w-100 h-100" style="width: 18rem;">
+										<div class="inner">
+											<img src="{{i.img.url}}" class="card-img-top" alt="{{ i.title }}">
+										</div>
+										<div class="card-body">
+											<a href="{{ i.get_absolute_url }}" class="link">
+												<h5 class="card-title mb-4">{{ i.title }}</h5>
+											</a>
+											<p class="card-text blockquote-footer">{{ i.desc }}</p>
+										</div>
+
+										<div class="card-footer bg-white" style="border: none;">
+											<h5>{{ i.price|fixed_price }} сум</h5>
+											<a class="btn btn-primary add_to_cart mt-3 mb-2 btn_{{ i.pk }}" data-id="{{ i.pk }}">Хочу</a>
+											<div class="input-group mt-4 mb-2" style="display: none;">
+												<button class="btn btn-outline-secondary minus minus_{{ i.pk }}" type="button" data-id="{{ i.pk }}">-</button>
+												<span class="input-group-text">0</span>
+												<button class="btn btn-outline-secondary plus plus_{{ i.pk }}" type="button" data-id="{{ i.pk }}">+</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							{% endif %}
+							{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+				{% endif %}
+
+				{% if new == True %}
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="headingNew">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNew" aria-expanded="false" aria-controls="collapseNew">
+							<div class="d-flex">
+								<span class="border_title"></span>
+								<span class="font_title">Новинки</span>
+							</div>
+						</button>
+					</h2>
+
+					<div id="collapseNew" class="accordion-collapse collapse" aria-labelledby="headingNew">
+						<div class="accordion-body">
+							<div class="row ml-0 mr-0 mt-4 mb-4">
+							{% for i in menu %}
+							{% if i.is_published and i.is_new %}
+								<div class="col-md-4 col-lg-3 px-0">
+									<div class="card card_anim w-100 h-100" style="width: 18rem;">
+										<div class="inner">
+											<img src="{{i.img.url}}" class="card-img-top" alt="{{ i.title }}">
+										</div>
+										<div class="card-body">
+											<a href="{{ i.get_absolute_url }}" class="link">
+												<h5 class="card-title mb-4">{{ i.title }}</h5>
+											</a>
+											<p class="card-text blockquote-footer">{{ i.desc }}</p>
+										</div>
+
+										<div class="card-footer bg-white" style="border: none;">
+											<h5>{{ i.price|fixed_price }} сум</h5>
+											<a class="btn btn-primary add_to_cart mt-3 mb-2 btn_{{ i.pk }}" data-id="{{ i.pk }}">Хочу</a>
+											<div class="input-group mt-4 mb-2" style="display: none;">
+												<button class="btn btn-outline-secondary minus minus_{{ i.pk }}" type="button" data-id="{{ i.pk }}">-</button>
+												<span class="input-group-text">0</span>
+												<button class="btn btn-outline-secondary plus plus_{{ i.pk }}" type="button" data-id="{{ i.pk }}">+</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							{% endif %}
+							{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+				{% endif %}
+
+				{% for c, m in foods.items %}
+
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="heading{{ c.pk }}">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ c.pk }}" aria-expanded="false" aria-controls="collapse{{ c.pk }}">
+							<div class="d-flex">
+								<span class="border_title"></span>
+								<span class="font_title">{{ c.title }}</span>
+							</div>
+						</button>
+					</h2>
+					<div id="collapse{{ c.pk }}" class="accordion-collapse collapse" aria-labelledby="heading{{ c.pk }}">
+						<div class="accordion-body">
+							<div class="row ml-0 mr-0 mt-4 mb-4">
+							{% for i in m %}
+							{% if i.is_published %}
+								<div class="col-md-4 col-lg-3 px-0">
+									<div class="card card_anim w-100 h-100" style="width: 18rem;">
+										<div class="inner">
+											<img src="{{i.img.url}}" class="card-img-top" alt="{{ i.title }}">
+										</div>
+										<div class="card-body">
+											<a href="{{ i.get_absolute_url }}" class="link">
+												<h5 class="card-title mb-4">{{ i.title }}</h5>
+											</a>
+											<p class="card-text blockquote-footer">{{ i.desc }}</p>
+										</div>
+
+										<div class="card-footer bg-white" style="border: none;">
+											<h5>{{ i.price|fixed_price }} сум</h5>
+											<a class="btn btn-primary add_to_cart mt-3 mb-2 btn_{{ i.pk }}" data-id="{{ i.pk }}">Хочу</a>
+											<div class="input-group mt-4 mb-2" style="display: none;">
+												<button class="btn btn-outline-secondary minus minus_{{ i.pk }}" type="button" data-id="{{ i.pk }}">-</button>
+												<span class="input-group-text">0</span>
+												<button class="btn btn-outline-secondary plus plus_{{ i.pk }}" type="button" data-id="{{ i.pk }}">+</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							{% endif %}
+							{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+
+
+			</div>
+		</div>
+	</div>
+	<!-- CONTENT END -->
+
+{% endblock %}

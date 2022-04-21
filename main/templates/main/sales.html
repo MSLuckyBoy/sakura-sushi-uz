@@ -1,0 +1,59 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block title %}
+АКЦИИ | SAKURA SUSHI
+{% endblock %}
+
+{% block content %}
+	<!-- CONTENT -->
+	<div class="container-fluid menu">
+		<div class="container">
+
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+    				<li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+    				<li class="breadcrumb-item active" aria-current="page">Акции</li>
+  				</ol>
+			</nav>
+			<div class="d-flex mb-4">
+				<span class="border_title"></span>
+				<span class="font_title">Акции</span>
+			</div>
+
+			<div class="row row-cols-1 row-cols-md-3 g-4">
+				{% if sales %}
+				{% for sale in sales %}
+				{% if sale.is_published %}
+				<div class="col">
+					<div class="card card_anim h-100">
+						<a href="{{ sale.get_absolute_url }}">
+							<img src="{{ sale.banner.url }}" class="card-img-top" alt="{{ sale.title }}">
+						</a>
+						<div class="card-body">
+							<small class="text-muted">{{ sale.date }}</small>
+							<a href="{{ sale.get_absolute_url }}" class="link">
+								<h5 class="card-title">{{ sale.title }}</h5>
+							</a>
+						</div>
+					</div>
+				</div>
+				{% endif %}
+				{% endfor %}
+				{% else %}
+				<div class="myborder text-center w-100">
+					<div class="card-body">
+						<h5 class="card-title">Тут пусто!</h5>
+						<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+						<a href="#" class="btn btn-primary">HOME</a>
+					</div>
+				</div>
+				{% endif %}
+
+			</div>
+
+		</div>
+	</div>
+	<!-- CONTENT -->
+{% endblock %}

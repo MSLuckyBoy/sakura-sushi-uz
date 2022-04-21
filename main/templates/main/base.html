@@ -1,0 +1,589 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="Ресторан японской кухни в Ташкенте. Быстрая доставка суши, роллов, сеты, сашими">
+    <meta name="keywords" content="суши, роллы, сашими, доставка, sakura sushi, японская кухня">
+
+    <!--Favicons-->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'icons/apple-touch-icon.png' %}">
+	<link rel="icon" type="image/png" sizes="32x32" href="{% static 'icons/favicon-32x32.png' %}">
+	<link rel="icon" type="image/png" sizes="16x16" href="{% static 'icons/favicon-16x16.png' %}">
+	<link rel="manifest" href="{% static 'icons/site.webmanifest' %}">
+	<link rel="mask-icon" href="{% static 'icons/safari-pinned-tab.svg' %}" color="#6a6a6a">
+	<meta name="msapplication-TileColor" content="#2d89ef">
+	<meta name="theme-color" content="#ffffff">
+
+    <!--Icons-->
+    <link href="{% static 'css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+
+    <!--JS-->
+    <script src="{% static 'js/just-validate.min.js' %}"></script>
+	<script src="{% static 'js/inputmask.min.js' %}"></script>
+
+	<!--JQuery-->
+	<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+
+    <!-- Yandex Maps -->
+	<script src="https://api-maps.yandex.ru/2.1/?apikey=b33699ee-0452-4bde-aa04-03f8266ee96a&lang=ru_RU" type="text/javascript">
+    </script>
+
+    <title>{% block title %}{% endblock %}</title>
+
+</head>
+<body>
+	<p style="margin-bottom: 30px;">...</p>
+
+	
+	<!-- HEADER -->
+	<header role="banner" class="header fixed-top">
+		<nav class="navbar navbar-dark bg-light border-bottom">
+			<div class="container-xxl">
+				<div class="d-flex align-items-center">
+					<div class="menu_burger">
+						<button class="border border-0 bg-transparent" type="button" data-bs-toggle="offcanvas" data-bs-target="#SideBarModal">
+							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+							<path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+							</svg>
+						</button>
+					</div>
+					<div>
+						<a href="{% url 'home' %}">
+						<img src="{% static 'img/Sakura_Sushi_logo_full_v2.png' %}" width="124" height="40">
+						</a>
+					</div>
+				</div>
+
+				<ul class="nav header_nav_dis">
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'menu' %}">Меню</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'news' %}">Новости</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'about' %}">О нас</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'sales' %}">Акции</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'delivery' %}">Доставка</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'contacts' %}">Контакты</a>
+					</li>
+				</ul>
+				<div class="header_contact text-dark" style="margin: 0px;">
+					<a href="tel:{{ tel }}" class="link">
+						<h6 style="margin: 0px"><b>{{ tel|phone_num }}</b></h6>
+					</a>
+					<p style="font-size: 11px; margin: 0px">{{ comment }}</p>
+				</div>
+
+				<div class="header_icon">
+					<button class="border border-0 bg-transparent me-3 this login" type="button" name="button">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+							<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+							<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+						</svg>
+					</button>
+					<button class="border border-0 bg-transparent position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#BasketModal">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
+							<path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+						</svg>
+						<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="product_counter" style="display: none;">0</span>
+					</button>
+					<button class="small_search_dis border border-0 bg-transparent ms-3" type="button" data-bs-toggle="modal" data-bs-target="#SearchModal">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+							<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+						</svg>
+					</button>
+				</div>
+				<div class="search_dis">
+					<form class="d-flex">
+						<div class="input-group rounded-pill">
+							<input type="search" name="q" class="form-control" list="datalistOptions" placeholder="Поиск" aria-label="Search" aria-describedby="button-addon">
+							<button class="btn btn-outline-secondary" type="submit" id="button-addon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+									<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+								</svg>
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<!-- HEADER -->
+
+
+	<!--LOGIN MODAL-->
+	<div class="modal fade" role="dialog" data-bs-backdrop="static" id="modal-login">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+    				<div class="row justify-content-between mb-4">
+    					<div class="col-auto">
+    						<img src="{% static 'img/Sakura_Sushi_logo_full_v2.png' %}" width="200" alt="Sakura Sushi Logo">
+    					</div>
+    					<div class="col-auto">
+    						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    					</div>
+    				</div>
+
+    				<div id="log-form">
+    					<!--form 1-->
+    				</div>
+
+    				<div id="log_otp-form">
+    					<!--form 2-->
+    				</div>
+    
+    				<div class="text-center mt-3">
+        				<a href="" class="register" data-bs-dismiss="modal">Зарегистрироваться</a>
+    				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--LOGIN MODAL END-->
+
+
+	<!--REGISTER MODAL-->
+	<div class="modal fade" role="dialog" data-bs-backdrop="static" id="modal-register">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+    				<div class="row justify-content-between mb-4">
+    					<div class="col-auto">
+    						<img src="{% static 'img/Sakura_Sushi_logo_full_v2.png' %}" width="200" alt="Sakura Sushi Logo">
+    					</div>
+    					<div class="col-auto">
+    						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    					</div>
+    				</div>
+
+    				<div id="reg-form">
+    					<!--form 1-->
+    				</div>
+
+    				<div id="reg_otp-form">
+    					<!--form 2-->
+    				</div>
+    
+    				<div class="text-center mt-3">
+        				<a href="" class="login" data-bs-dismiss="modal">У меня уже есть аккаунт</a>
+    				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--REGISTER MODAL END-->
+
+
+	<!--PROFILE MODAL-->
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-profile">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+    				<div class="row justify-content-between mb-4">
+    					<div class="col-auto">
+    						<img src="{% static 'img/Sakura_Sushi_logo_full_v2.png' %}" width="200" alt="Sakura Sushi Logo">
+    					</div>
+    					<div class="col-auto">
+    						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    					</div>
+    				</div>
+
+    				<div id="user_data">
+    					<!---->
+    				</div>
+    				<div class="d-grid" id="log_btn">
+				        <button id="logout" type="button" class="btn btn-primary">
+				            Выйти
+				        </button>
+				    </div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--PROFILE MODAL END-->
+
+	
+	<!-- CHECKOUT MODAL -->
+	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<img src="{% static 'img/Sakura_Sushi_logo_full_v2.png' %}" width="200" alt="Sakura Sushi Logo">
+				</div>
+				<div class="modal-body">
+					<div class="mb-4">
+						<h6>*Укажите адрес доставки на карте:</h6>
+						<div id="user_coor" style="width: 100%; height: 240px"></div>
+						<input type="hidden" id="x_cor" name="x_cor">
+						<input type="hidden" id="y_cor" name="y_cor">
+						<script type="text/javascript">
+							ymaps.ready(init);
+
+							function init(){
+								var myMap = new ymaps.Map('user_coor', {
+									center: [41.320591, 69.266646],
+							        zoom: 16,
+							        controls: ["zoomControl", "fullscreenControl", "typeSelector"]
+								}, {
+									restrictMapArea: [
+										[41.58812377737003, 68.7303758583984],
+										[40.983189831923355, 69.85098132714842]
+									]
+								}),
+
+								MyIconContentLayout = ymaps.templateLayoutFactory.createClass(
+			                        '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
+			                        ),
+								myPlacemark = new ymaps.Placemark(myMap.getCenter(), {
+			                        hintContent: 'SAKURA SUSHI UZ',
+			                        balloonContent: 'sakurasushi.uz'
+			                    }, {
+			                    	iconLayout: 'default#image',
+			                    	iconImageHref: 'static/img/sakura_sushi_map.png',
+			                    	iconImageSize: [50, 50],
+			                    	iconImageOffset: [-5, -38]
+			                    });
+
+								myMap.geoObjects.add(myPlacemark);
+
+								var placemark = null;
+
+								myMap.events.add('click', function (e) {
+									var coords = e.get('coords');
+									console.log(coords);
+
+									document.getElementById('x_cor').value = coords[0];
+									document.getElementById('y_cor').value = coords[1];
+
+									if (placemark !== null){
+										myMap.geoObjects.remove(placemark);
+									}
+									placemark = new ymaps.Placemark(coords);
+									myMap.geoObjects.add(placemark);
+
+								});
+							}
+						</script>
+					</div>
+
+					<div class="mb-4">
+						<h6>*Адрес доставки:</h6>
+						<input class="form-control form-control-lg" maxlength="100" id="user_address" type="text">
+					</div>
+
+					<div class="mb-4">
+						<h6>Выберите способ оплаты:</h6>
+						<select class="form-select form-select-lg mb-3" id="payment" aria-label=".form-select-lg example">
+							<option selected>Наличными</option>
+							<option>Карта</option>
+							<option>Payme</option>
+							<option>Click</option>
+						</select>				
+					</div>
+
+					<div class="mb-4">
+						<h6>Коментария:</h6>
+						<textarea class="form-control" id="comment" maxlength="300" rows="3"></textarea>
+					</div>
+
+					<div>
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Название</th>
+									<th scope="col">Цена</th>
+									<th scope="col">Количество</th>
+								</tr>
+							</thead>
+							<tbody class="check_list">
+								<!---->
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer justify-content-start">
+					<button type="button" id="cancel" class="btn btn-primary">Отмена</button>
+					<button type="button" id="confirm" class="btn btn-primary">Подтвердить</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- CHECKOUT MODAL END -->
+
+
+	<!-- SIDEBAR -->
+	<div class="offcanvas offcanvas-start sidebar_modal" tabindex="-1" id="SideBarModal" aria-labelledby="SideBarModalLabel" aria-hidden="true">
+		<div class="offcanvas-header">
+			<img src="{% static 'img/Sakura_Sushi_logo_full_v2.png' %}" width="200" alt="Sakura Sushi Logo">
+			<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body bg-info">
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item bg-transparent">
+					<a href="{% url 'menu' %}" class="text-decoration-none text-white">МЕНЮ</a>
+				</li>
+				<li class="list-group-item bg-transparent">
+					<a href="{% url 'news' %}" class="text-decoration-none text-white">НОВОСТИ</a>
+				</li>
+				<li class="list-group-item bg-transparent">
+					<a href="{% url 'about' %}" class="text-decoration-none text-white">О НАС</a>
+				</li>
+				<li class="list-group-item bg-transparent">
+					<a href="{% url 'sales' %}" class="text-decoration-none text-white">АКЦИИ</a>
+				</li>
+				<li class="list-group-item bg-transparent">
+					<a href="{% url 'delivery' %}" class="text-decoration-none text-white">ДОСТАВКА</a>
+				</li>
+				</li>
+				<li class="list-group-item bg-transparent">
+					<a href="{% url 'contacts' %}" class="text-decoration-none text-white">КОНТАКТЫ</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- SIDEBAR END -->
+
+
+	<!-- BASKET -->
+	<div class="offcanvas offcanvas-end cart_modal" tabindex="-1" id="BasketModal" aria-labelledby="BasketModalLabel" aria-hidden="true">
+		<div class="offcanvas-header bg-light border-bottom">
+			<span class="fw-bold" id="BasketModalLabel">Корзинка</span>
+			<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body cart_products justify-content-center">
+			<!--Products-->
+			<div class="myborder text-center h-100" id="empty" style="display: none;">
+				<div class="card-body">
+					<h5 class="card-title">Тут пусто!</h5>
+				</div>
+			</div>
+		</div>
+		<div class="offcanvas-footer bg-light border-top">
+			<div class="row p-3 justify-content-between">
+				<div class="col-md-4">
+					Итого:<h6 class="fw-bold" id="total">0 сум</h6>
+				</div>
+				<div class="col-md-4 ms-auto">
+					<button type="submit" id="checkout" data-bs-dismiss="offcanvas" class="btn btn-primary" style="display: none;">
+						Оформить заказ
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- BASKET END -->
+
+
+	<!-- SEARCH MODAL -->
+	<div class="modal fade" id="SearchModal" tabindex="-1" aria-labelledby="SearchModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body p-2">
+					<form class="d-flex">
+						<div class="input-group rounded-pill">
+							<input type="search" name="q" class="form-control" list="datalistOptions" placeholder="Поиск" aria-label="Search" aria-describedby="button-addon">
+							<button class="btn btn-outline-secondary" type="submit" id="button-addon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+									<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+								</svg>
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- SEARCH MODAL END -->
+
+
+	{% block content %}{% endblock %}
+
+
+	<!-- CALL BUTTON -->
+	<div class="fixed-bottom contact_btn">
+		<div class="d-grid d-flex justify-content-end m-3">
+			<a href="tel:{{ tel }}" class="btn btn-primary rounded-circle">
+				<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+					<path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+				</svg>
+			</a>
+		</div>
+	</div>
+	<!-- CALL BUTTON END -->
+
+
+	<!-- FOOTER -->
+	<footer class="bg-light text-center text-white border-top mt-4">
+		<div class="container px-4 py-5" id="icon-grid">
+			<!--Grid row-->
+			<div class="row">
+				<div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+					<img src="{% static 'img/Sakura_Sushi_logo_full_v2.png' %}" width="280" alt="Sakura Sushi Logo">
+				</div>
+        		
+        		<!--Grid column-->
+        		<div class="col-lg-4 col-md-12 mb-4">
+        			<div class="row text-dark">
+        				<div class="col-6">
+	        				<h5 class="text-uppercase">О нас</h5>
+	        				
+	        				<ul class="list-unstyled mb-0">
+					            <li>
+					              <a href="{% url 'news' %}" class="text-dark">Новости</a>
+					            </li>
+					            <li>
+					              <a href="{% url 'about' %}" class="text-dark">О нас</a>
+					            </li>
+					            <li>
+					              <a href="{% url 'contacts' %}" class="text-dark">Контакты</a>
+					            </li>
+					        </ul>
+        				</div>
+
+        				<div class="col-6">
+        					<h5 class="text-uppercase">Сервисы</h5>
+        					<ul class="list-unstyled mb-0">
+        						<li>
+        							<a href="{% url 'menu' %}" class="text-dark">Меню</a>
+        						</li>
+        						<li>
+        							<a href="{% url 'sales' %}" class="text-dark">Акции</a>
+        						</li>
+        						<li>
+        							<a href="{% url 'delivery' %}" class="text-dark">Доставка</a>
+        						</li>
+        					</ul>
+        				</div>
+
+				    </div>
+				</div>
+				<!--Grid column-->
+
+        		<!--Grid column-->
+				<div class="col-lg-4 col-md-12">
+					<div class="text-dark m-0 pb-3">
+						<a href="tel:{{ tel }}" class="link">
+							<h5 style="margin: 0px"><b>{{ tel|phone_num }}</b></h5>
+						</a>
+						<p style="font-size: 13px; margin: 0px">{{ comment }}</p>
+					</div>
+
+					<!-- Section: Social media -->
+					<section>
+						<!-- Link 1 -->
+						{% if link_1 %}
+						<a class="btn btn-primary link_btn m-1" href="{{ link_1 }}" id='link_1' role="button">
+							{% if icon_1 %}
+							<i class="{{ icon_1 }}"></i>
+							{% else %}
+							<i class="fas fa-link"></i>
+							{% endif %}
+						</a>
+						<script type="text/javascript">
+							document.getElementById("link_1").style.background = '{{ color_1 }}'
+						</script>
+						{% endif %}
+
+						<!-- Link 2 -->
+						{% if link_2 %}
+						<a class="btn btn-primary link_btn m-1" href="{{ link_2 }}" id="link_2" role="button">
+							{% if icon_2 %}
+							<i class="{{ icon_2 }}"></i>
+							{% else %}
+							<i class="fas fa-link"></i>
+							{% endif %}
+						</a>
+						<script type="text/javascript">
+							document.getElementById("link_2").style.background = '{{ color_2 }}'
+						</script>
+						{% endif %}
+
+						<!-- Link 3 -->
+						{% if link_3 %}
+						<a class="btn btn-primary link_btn m-1" href="{{ link_3 }}" id="link_3" role="button">
+							{% if icon_3 %}
+							<i class="{{ icon_3 }}"></i>
+							{% else %}
+							<i class="fas fa-link"></i>
+							{% endif %}
+						</a>
+						<script type="text/javascript">
+							document.getElementById("link_3").style.background = '{{ color_3 }}'
+						</script>
+						{% endif %}
+
+						<!-- Link 4 -->
+						{% if link_4 %}
+						<a class="btn btn-primary link_btn m-1" href="{{ link_4 }}" id="link_4" role="button">
+							{% if icon_4 %}
+							<i class="{{ icon_4 }}"></i>
+							{% else %}
+							<i class="fas fa-link"></i>
+							{% endif %}
+						</a>
+						<script type="text/javascript">
+							document.getElementById("link_4").style.background = '{{ color_4 }}'
+						</script>
+						{% endif %}
+
+					</section>
+					<!-- Section: Social media -->
+
+				</div>
+        		<!--Grid column-->
+
+        	</div>
+      		<!--Grid row-->
+			
+		</div>
+
+		
+
+		<!-- Copyright -->
+		<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+		    © 2022 Copyright:
+			<a class="text-white" href="{% url 'home' %}">Sakura Sushi Uz</a>
+		</div>
+		<!-- Copyright -->
+	</footer>
+	<!-- FOOTER END -->
+
+
+    <!-- JS -->
+    <script src="{% static 'js/counter.js' %}"></script>
+
+    <script src="{% static 'js/register.js' %}"></script>
+
+    <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
+
+</body>
+</html>

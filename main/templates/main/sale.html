@@ -1,0 +1,30 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block title %}
+{{ title }} | SAKURA SUSHI
+{% endblock %}
+
+{% block content %}
+	<img class="img-fluid w-100" style="margin-bottom: -40px" src="{{ banner.url }}" alt="{{ title }}">
+	<div class="container-fluid menu">
+		<div class="container">
+
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+    				<li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+    				<li class="breadcrumb-item"><a href="{% url 'sales' %}">Акции</a></li>
+    				<li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+  				</ol>
+			</nav>
+			<div class="d-flex mb-4">
+				<span class="border_title"></span>
+				<span class="font_title">{{ title }}</span>
+			</div>
+
+			{{ text|safe }}
+
+		</div>
+	</div>
+{% endblock %}

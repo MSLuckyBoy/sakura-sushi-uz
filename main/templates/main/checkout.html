@@ -1,0 +1,63 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block title %}
+ОФОРМИТЬ ЗАКАЗ | SAKURA SUSHI
+{% endblock %}
+
+{% block content %}
+	<!-- CONTENT -->
+	<div class="container-fluid menu">
+		<div class="container">
+
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+    				<li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+    				<li class="breadcrumb-item"><a href="{% url 'menu' %}">Оформить заказ</a></li>
+  				</ol>
+			</nav>
+			<div class="d-flex mb-4">
+				<span class="border_title"></span>
+				<span class="font_title">Оформить заказ</span>
+			</div>
+
+			<!--	
+			<script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A78b70d2261817985999f07a4c707ea719f603d6c1b00dcab297a1fcf6b7d4fae&amp;width=600&amp;height=480&amp;lang=ru_RU&amp;scroll=true"></script>
+			-->
+
+			<div id="user_cor" style="width: 600px; height: 360px"></div>
+
+			<script type="text/javascript">
+				ymaps.ready(init);
+
+				function init(){
+					var myMap = new ymaps.Map('user_cor', {
+						center: [41.320591, 69.266646],
+				        zoom: 10
+					});
+
+					var placemark = null
+
+					myMap.events.add('click', function (e) {
+						var coords = e.get('coords');
+
+						if (placemark === null){
+							placemark = new ymaps.Placemark(coords);
+							myMap.geoObjects.add(placemark);
+						}
+						else{
+							myMap.geoObjects.remove(placemark);
+							placemark = new ymaps.Placemark(coords);
+							myMap.geoObjects.add(placemark);
+						}
+
+					});
+				}
+			</script>
+
+			
+		</div>
+	</div>
+	<!-- CONTENT END -->
+{% endblock %}

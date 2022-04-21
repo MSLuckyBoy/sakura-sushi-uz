@@ -1,0 +1,90 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block title %}
+КОНТАКТЫ | SAKURA SUSHI
+{% endblock %}
+
+{% block content %}
+	<div class="container-fluid menu">
+		<div class="container">
+
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+    				<li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+    				<li class="breadcrumb-item active" aria-current="page">Контакты</li>
+  				</ol>
+			</nav>
+            <div class="d-flex mb-4">
+                <span class="border_title"></span>
+                <span class="font_title">Контакты</span>
+            </div>
+
+            <div class="row d-flex">
+                <div class="col-md-8">
+                    {{ contacts|safe }}
+                </div>
+                <div class="col-md-4">
+                    <div id="map" style="width: 300px; height: 240px"></div>
+                </div>
+            </div>
+
+			<script type="text/javascript">
+                document.cookie = "Set-Cookie: cross-site-cookie=whatever; SameSite=None; Secure"
+                ymaps.ready(function () {
+                    var myMap = new ymaps.Map('map', {
+                        center: [41.320591, 69.266646],
+                        zoom: 15
+                    }, {
+                        searchControlProvider: 'yandex#search'
+                    }),
+
+                    // Создаём макет содержимого.
+                    MyIconContentLayout = ymaps.templateLayoutFactory.createClass(
+                        '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
+                        ),
+                    myPlacemark = new ymaps.Placemark(myMap.getCenter(), {
+                        hintContent: 'SAKURA SUSHI UZ',
+                        balloonContent: 'sakurasushi.uz'
+                    }, {
+                    // Опции.
+                    // Необходимо указать данный тип макета.
+                    iconLayout: 'default#image',
+                    // Своё изображение иконки метки.
+                    iconImageHref: 'static/img/sakura_sushi_map.png',
+                    // Размеры метки.
+                    iconImageSize: [50, 50],
+                    // Смещение левого верхнего угла иконки относительно
+                    // её "ножки" (точки привязки).
+                    iconImageOffset: [-5, -38]
+                }),
+                
+                myPlacemarkWithContent = new ymaps.Placemark([55.661574, 37.573856], {
+                    hintContent: 'Собственный значок метки с контентом',
+                    balloonContent: 'А эта — новогодняя',
+                    iconContent: '12'
+                }, {
+                    // Опции.
+                    // Необходимо указать данный тип макета.
+                    iconLayout: 'default#imageWithContent',
+                    // Своё изображение иконки метки.
+                    iconImageHref: 'images/ball.png',
+                    // Размеры метки.
+                    iconImageSize: [48, 48],
+                    // Смещение левого верхнего угла иконки относительно
+                    // её "ножки" (точки привязки).
+                    iconImageOffset: [-24, -24],
+                    // Смещение слоя с содержимым относительно слоя с картинкой.
+                    iconContentOffset: [15, 15],
+                    // Макет содержимого.
+                    iconContentLayout: MyIconContentLayout
+                });
+                myMap.geoObjects
+                .add(myPlacemark)
+                .add(myPlacemarkWithContent);
+                });
+            </script>
+		</div>
+	</div>
+{% endblock %}

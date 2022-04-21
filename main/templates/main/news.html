@@ -1,0 +1,59 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block title %}
+НОВОСТИ | SAKURA SUSHI
+{% endblock %}
+
+{% block content %}
+	<!-- CONTENT -->
+	<div class="container-fluid menu">
+		<div class="container">
+
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+    				<li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+    				<li class="breadcrumb-item active" aria-current="page">Новости</li>
+  				</ol>
+			</nav>
+			<div class="d-flex mb-4">
+				<span class="border_title"></span>
+				<span class="font_title">Новости</span>
+			</div>
+
+
+			<div class="row row-cols-1 row-cols-md-2 g-4">
+				{% if news %}
+				{% for n in news %}
+				{% if n.is_published %}
+				<div class="col">
+					<div class="card card_anim h-100">
+						{% if n.img %}
+						<a href="{{ n.get_absolute_url }}">
+							<img src="{{ n.img.url }}" class="card-img-top" alt="{{ n.title }}">
+						</a>
+						{% endif %}
+						<div class="card-body">
+							<a href="{{ n.get_absolute_url }}" class="link">
+								<h5 class="card-title">{{ n.title }}</h5>
+							</a>
+							<p class="card-text">{{ n.desc }}</p>
+							<small class="text-muted">{{ n.date }}</small>
+						</div>
+					</div>
+				</div>
+				{% endif %}
+				{% endfor %}
+				{% else %}
+				<div class="myborder text-center w-100">
+					<div class="card-body">
+						<h5 class="card-title">Тут пусто!</h5>
+					</div>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	<!-- CONTENT END -->
+{% endblock %}

@@ -1,0 +1,154 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block title %}
+MENU | SAKURA SUSHI
+{% endblock %}
+
+{% block content %}
+	<!-- MENU -->
+	<div class="container-fluid menu">
+		<div class="container">
+			
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+    				<li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+    				<li class="breadcrumb-item active" aria-current="page">Меню</li>
+  				</ol>
+			</nav>
+
+			<div class="d-flex mb-4">
+				<span class="border_title"></span>
+				<span class="font_title">Меню</span>
+			</div>
+
+			<ul class="nav nav-tabs"  id="list-tab" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link active" id="list-new-list" data-bs-toggle="list" href="#list-new" role="tab" aria-controls="list-new">Новинки</a>
+				</li>
+
+				{% for dropdown, category in data.items %}
+				{% if dropdown.id != 1 %}
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button">{{ dropdown.title }}</a>
+
+					<ul class="dropdown-menu">
+					{% for cat in category.keys %}
+						<li><a class="dropdown-item" id="list-{{ dropdown.id }}_{{ cat.id }}-list" data-bs-toggle="list" href="#list-{{ dropdown.id }}_{{ cat.id }}" role="tab" aria-controls="list-{{ dropdown.id }}_{{ cat.id }}">{{ cat.title }}</a></li>
+					{% endfor %}
+					</ul>
+				</li>
+
+				{% else %}
+				{% for cat in category.keys %}
+				<li class="nav-item">
+					<a class="nav-link" id="list-{{ dropdown.id }}_{{ cat.id }}-list" data-bs-toggle="list" href="#list-{{ dropdown.id }}_{{ cat.id }}" role="tab" aria-controls="list-{{ dropdown.id }}_{{ cat.id }}">{{ cat.title }}</a>
+				</li>
+				{% endfor %}
+				
+				{% endif %}
+				{% endfor %}
+				
+			</ul>
+			<br>
+
+			<div class="tab-content" id="nav-tabContent">
+				<div class="tab-pane fade show active" id="list-new" role="tabpanel" aria-labelledby="list-new-list">
+
+					{% if new %}
+
+					<div class="row ml-0 mr-0">
+
+						{% for i in menu %}
+						{% if i.is_published and i.is_new %}
+						<div class="col-md-4 col-lg-3 px-0">
+							<div class="card card_anim w-100 h-100" style="width: 18rem;">
+								<div class="inner">
+									<img src="{{i.img.url}}" class="card-img-top" alt="{{ i.title }}">
+								</div>
+								<div class="card-body">
+									<a href="{{ i.get_absolute_url }}" class="link">
+										<h5 class="card-title mb-4">{{ i.title }}</h5>
+									</a>
+									<p class="card-text blockquote-footer">{{ i.desc }}</p>
+
+								</div>
+								<div class="card-footer bg-white" style="border: none;">
+
+									<h5>{{ i.price|fixed_price }} сум</h5>
+									<a class="btn btn-primary add_to_cart mt-3 mb-2 btn_{{ i.pk }}" data-id="{{ i.pk }}">Хочу</a>
+									<div class="input-group mt-4 mb-2" style="display: none;">
+										<button class="btn btn-outline-secondary minus minus_{{ i.pk }}" type="button" data-id="{{ i.pk }}">-</button>
+										<span class="input-group-text">0</span>
+										<button class="btn btn-outline-secondary plus plus_{{ i.pk }}" type="button" data-id="{{ i.pk }}">+</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endif %}
+						{% endfor %}
+					</div>
+					{% else %}
+					<div class="myborder text-center">
+						<div class="card-body">
+							<h5 class="card-title">Тут пусто!</h5>
+						</div>
+					</div>
+					{% endif %}
+
+				</div>
+
+				{% for dropdown, category in data.items %}
+				{% for cat, menu in category.items %}
+				<div class="tab-pane fade" id="list-{{ dropdown.id }}_{{ cat.id }}" role="tabpanel" aria-labelledby="list-{{ dropdown.id }}_{{ cat.id }}-list">
+
+					{% if menu %}
+					<div class="row ml-0 mr-0">
+
+						{% for i in menu %}
+						{% if i.is_published %}
+						<div class="col-md-4 col-lg-3 px-0">
+							<div class="card card_anim w-100 h-100" style="width: 18rem;">
+								<div class="inner">
+									<img src="{{i.img.url}}" class="card-img-top" alt="{{ i.title }}">
+								</div>
+								<div class="card-body">
+									<a href="{{ i.get_absolute_url }}" class="link">
+										<h5 class="card-title mb-4">{{ i.title }}</h5>
+									</a>
+									<p class="card-text blockquote-footer">{{ i.desc }}</p>
+								</div>
+								<div class="card-footer bg-white" style="border: none;">
+									<h5>{{ i.price|fixed_price }} cум</h5>
+									<a class="btn btn-primary add_to_cart mt-3 mb-2 btn_{{ i.pk }}" data-id="{{ i.pk }}">Хочу</a>
+									<div class="input-group mt-4 mb-2" style="display: none;">
+										<button class="btn btn-outline-secondary minus minus_{{ i.pk }}" type="button" data-id="{{ i.pk }}">-</button>
+										<span class="input-group-text">0</span>
+										<button class="btn btn-outline-secondary plus plus_{{ i.pk }}" type="button" data-id="{{ i.pk }}">+</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endif %}
+						{% endfor %}
+					</div>
+					
+					{% else %}
+					<div class="myborder text-center">
+						<div class="card-body">
+							<h5 class="card-title">Тут пусто!</h5>
+						</div>
+					</div>
+					{% endif %}
+
+				</div>
+				{% endfor %}
+				{% endfor %}
+
+			</div>
+
+		</div>
+	</div>
+	<!-- MENU END -->
+{% endblock %}

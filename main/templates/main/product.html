@@ -1,0 +1,44 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block title %}
+{{ product.title }}
+{% endblock %}
+
+{% block content %}
+	<!-- CONTENT -->
+	<div class="container-fluid menu">
+		<div class="container">
+
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+    				<li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+    				<li class="breadcrumb-item"><a href="{% url 'menu' %}">Меню</a></li>
+    				<li class="breadcrumb-item active" aria-current="page">{{ product.title }}</li>
+  				</ol>
+			</nav>
+			<div class="d-flex mb-4">
+				<span class="border_title"></span>
+				<span class="font_title">{{ product.title }}</span>
+			</div>
+
+			<hr>
+
+			<div class="row row-cols-1 row-cols-sm-2">
+                <div class="col-md-auto me-3 mb-3">
+                	<img src="{{ product.img.url }}" width="300" style="border-radius: 5px;" alt="{{ product.title }}">
+                </div>
+                <div class="col-sm-6">
+					<p>{{ product.desc }}</p>
+					<p>
+						{{ product.full_desc|safe }}
+					</p>
+					<p>Цена: {{ product.price|fixed_price }} сум</p>
+                </div>
+            </div>
+            <hr>
+		</div>
+	</div>
+	<!-- CONTENT END -->
+{% endblock %}

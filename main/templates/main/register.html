@@ -1,0 +1,22 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<form method="POST" data-url="{% url 'register' %}" class="form register-form">
+    {% csrf_token %}
+
+    {{ form|crispy }}
+
+    <div class="d-grid">
+        <button id="reg_send_code" type="submit" class="btn btn-primary">
+            Зарегистрироваться
+        </button>
+    </div>
+</form>
+
+<script type="text/javascript">
+    Inputmask(
+        {
+            showMaskOnHover: false,
+        }
+    ).mask(document.querySelectorAll('input[type="tel"]'));
+</script>
