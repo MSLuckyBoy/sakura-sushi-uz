@@ -21,7 +21,15 @@
 				<span class="font_title">О нас</span>
 			</div>
 
+			{% if about %}
 			{{ about|safe }}
+			{% else %}
+			<div class="myborder text-center w-100">
+				<div class="card-body">
+					<h5 class="card-title">Тут пусто!</h5>
+				</div>
+			</div>
+			{% endif %}
 
 		</div>
 	</div>

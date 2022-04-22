@@ -2,8 +2,7 @@ import telebot
 from telebot import types
 import re
 
-#TOKEN = "1848770701:AAHHDSLoIR9FHpmA93wX6y8w4KlDVZ5jCRI"
-TOKEN = "1848770701:AAHbab2XeQLTJS9hpvN02D77WwLthy50ODM"
+TOKEN = "1848723245:AAHHDSLoIR9FHaFAIKaTOKEN8sw4KlDVZ5jsdCRI" #!!!FAIK TOKEN!!!!
 
 bot = telebot.TeleBot(TOKEN)
 

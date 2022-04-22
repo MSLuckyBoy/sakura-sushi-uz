@@ -321,9 +321,14 @@ def about(request):
 		q = request.GET['q']
 		return redirect(f"search/?q={q}")
 
-	about = AboutPage.objects.all()
+	try:
+		about = AboutPage.objects.all()
+		data = about[0].body
+	except:
+		data = None
 
-	return render(request, "main/about.html", {'about': about[0].body})
+
+	return render(request, "main/about.html", {'about': data})
 
 
 def sales(request):
@@ -361,12 +366,19 @@ def delivery(request):
 		q = request.GET['q']
 		return redirect(f"search/?q={q}")
 
-	delivery = DeliveryPage.objects.all()
+	try:
+		delivery = DeliveryPage.objects.all()
 
-	data = {
-		'img': delivery[0].banner,
-		'body': delivery[0].body
-	}
+		data = {
+			'img': delivery[0].banner,
+			'body': delivery[0].body
+		}
+	except:
+		data = {
+			'img': None,
+			'body': None
+		}
+
 
 	return render(request, "main/delivery.html", data)
 
@@ -376,11 +388,17 @@ def contacts(request):
 		q = request.GET['q']
 		return redirect(f"search/?q={q}")
 
-	contacts = ContactsPage.objects.all()
-
-	data = {
-		'yandex_map': contacts[0].yandex_map,
-		'contacts': contacts[0].body
-	}
+	try:
+		contacts = ContactsPage.objects.all()
+		
+		data = {
+			'yandex_map': contacts[0].yandex_map,
+			'contacts': contacts[0].body
+		}
+	except Exception as e:
+		data = {
+			'yandex_map': None,
+			'contacts': None
+		}
 
 	return render(request, "main/contacts.html", data)

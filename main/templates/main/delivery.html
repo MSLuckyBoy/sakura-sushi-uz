@@ -24,7 +24,16 @@
 				<span class="font_title">Доставка</span>
 			</div>
 
+			{% if body %}
 			{{ body|safe }}
+			{% else %}
+			<div class="myborder text-center w-100">
+				<div class="card-body">
+					<h5 class="card-title">Тут пусто!</h5>
+				</div>
+			</div>
+			{% endif %}
+
 		
 		</div>
 	</div>
