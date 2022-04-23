@@ -102,7 +102,6 @@ TEMPLATES = [
         },
     },
 ]
-                #'main.context_processors.add_my_login_form',
 
 WSGI_APPLICATION = 'website.wsgi.application'
 

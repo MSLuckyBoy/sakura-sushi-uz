@@ -1,6 +1,7 @@
 from django.contrib import sitemaps
 from django.urls import reverse
 
+
 class MainStaticViewSitemap(sitemaps.Sitemap):
     priority = 1
     changefreq = 'daily'
@@ -10,6 +11,7 @@ class MainStaticViewSitemap(sitemaps.Sitemap):
 
     def location(self, item):
         return reverse(item)
+
 
 class StaticViewSitemap(sitemaps.Sitemap):
     priority = 0.7

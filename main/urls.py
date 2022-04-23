@@ -13,6 +13,7 @@ sitemaps = {
     'sales': GenericSitemap({'queryset': Sales.objects.all()}, priority=0.5),
 }
 
+
 urlpatterns = [
     path('', views.index, name='home'),
     path('search/', views.SearchView, name='search'),
